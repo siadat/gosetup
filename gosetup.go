@@ -35,7 +35,7 @@ func main() {
 }`
 
 func setEnvLines(gopath string) string {
-	return fmt.Sprintf("export GOPATH=%q\nexport PATH=\"$PATH:$GOPATH/bin\"", gopath)
+	return fmt.Sprintf("export GOPATH=%q\nexport PATH=%q", gopath, "$PATH:$GOPATH/bin")
 }
 
 func main() {
