@@ -23,8 +23,8 @@ This is the output of a simple session:
 
     >>> Adding the following lines to /home/sina/.bashrc:
     >>> 
-    >>>     export GOPATH=$HOME/go
-    >>>     export PATH=$PATH:$GOPATH/bin
+    >>>     export GOPATH="/home/sina/go"
+    >>>     export PATH="$PATH${PATH:+:}$GOPATH/bin"
     >>> 
     Continue [Y,n,e,?]? y
     >>> Done. Changes will be reflected next time a terminal is started.
@@ -38,7 +38,7 @@ This is the output of a simple session:
     
     >>> Run this program with the following commands:
     >>> 
-    >>>     cd /home/sina/go/src/github.com/siadat/hello
+    >>>     cd "/home/sina/go/src/github.com/siadat/hello"
     >>>     go run hello.go
     >>>     go install
     >>>     hello
