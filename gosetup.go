@@ -34,6 +34,10 @@ func main() {
     fmt.Printf("hello, world\n")
 }`
 
+func setEnvLines(gopath string) string {
+	return fmt.Sprintf("export GOPATH=%q\nexport PATH=\"$PATH:$GOPATH/bin\"", gopath)
+}
+
 func main() {
 	log.SetFlags(0)
 	log.SetPrefix(">>> ")
@@ -59,11 +63,9 @@ func main() {
 	for {
 		switch state {
 		case stateConfirmGopath:
-			s := fmt.Sprintf("export GOPATH=%s\nexport PATH=$PATH:$GOPATH/bin", gopath)
-
 			log.Printf("Adding the following lines to %s:", profile)
 			log.Printf("\n")
-			fmt.Println(prefixLines(s, ">>>\t"))
+			fmt.Println(prefixLines(setEnvLines(expand(gopath)), ">>>\t"))
 			log.Printf("\n")
 
 			switch prompt("Continue [Y,n,e,?]? ") {
@@ -82,8 +84,7 @@ func main() {
 				log.Println()
 			}
 		case statePersistGoPath:
-			s := fmt.Sprintf("export GOPATH=%s\nexport PATH=$PATH:$GOPATH/bin", gopath)
-			if err := appendToFile(profile, s+"\n"); err != nil {
+			if err := appendToFile(profile, setEnvLines(expand(gopath))+"\n"); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
@@ -158,7 +159,7 @@ func promptSampleProg(gopath string) error {
 	fmt.Println()
 	log.Printf("Run this program with the following commands:\n")
 	log.Printf("\n")
-	log.Printf("\tcd %s\n", dir)
+	log.Printf("\tcd %q\n", dir)
 	log.Printf("\tgo run hello.go\n")
 	log.Printf("\tgo install\n")
 	log.Printf("\thello\n")
