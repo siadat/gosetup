@@ -87,7 +87,7 @@ func main() {
 				fmt.Println(err)
 				os.Exit(1)
 			}
-			if err := mkdirWorkspace(gopath); err != nil {
+			if err := os.MkdirAll(filepath.Join(expand(gopath), "src"), 0755); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}
@@ -164,19 +164,6 @@ func promptSampleProg(gopath string) error {
 	log.Printf("\thello\n")
 	log.Printf("\n")
 
-	return nil
-}
-
-func mkdirWorkspace(gopath string) error {
-	if err := os.MkdirAll(filepath.Join(expand(gopath), "src"), 0755); err != nil {
-		return err
-	}
-	if err := os.MkdirAll(filepath.Join(expand(gopath), "bin"), 0755); err != nil {
-		return err
-	}
-	if err := os.MkdirAll(filepath.Join(expand(gopath), "pkg"), 0755); err != nil {
-		return err
-	}
 	return nil
 }
 
