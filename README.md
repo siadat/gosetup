@@ -10,10 +10,6 @@ Gosetup performs the following actions:
 
 - set `GOPATH`
 - add `GOPATH/bin` to `PATH`
-- create the following directories
-  - `GOPATH/src`
-  - `GOPATH/bin`
-  - `GOPATH/pkg`
 - create a hello world package with the following file
   - `GOPATH/src/github.com/USERNAME/hello/hello.go`
 
